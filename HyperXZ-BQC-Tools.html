@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HyperXZ-BQC-Tools</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            color: #2575fc;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        
+        .subtitle {
+            color: #6a11cb;
+            font-size: 1.2rem;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .form-container {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .preview-container {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #2575fc;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: #6a11cb;
+            outline: none;
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .color-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .color-input {
+            flex: 1;
+        }
+        
+        .color-preview {
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .generate-btn {
+            background: #6a11cb;
+            color: white;
+            flex: 2;
+        }
+        
+        .generate-btn:hover {
+            background: #2575fc;
+            transform: translateY(-2px);
+        }
+        
+        .download-btn {
+            background: #25c781;
+            color: white;
+            flex: 1;
+        }
+        
+        .download-btn:hover {
+            background: #1da169;
+            transform: translateY(-2px);
+        }
+        
+        .preview-title {
+            color: #2575fc;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        #preview-canvas {
+            max-width: 100%;
+            border: 2px dashed #6a11cb;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .preview-info {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: white;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>HyperXZ-BQC-Tools</h1>
+            <p class="subtitle">Buat Kutipan Keren dengan Mudah dan Cepat</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="form-container">
+                <h2>Pengaturan Kutipan</h2>
+                
+                <div class="form-group">
+                    <label for="brat-text">Isi Brat (Kutipan)</label>
+                    <textarea id="brat-text" placeholder="Masukkan teks kutipan Anda di sini..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="text-color">Warna Teks</label>
+                    <div class="color-group">
+                        <input type="color" id="text-color" value="#ffffff" class="color-input">
+                        <div class="color-preview" id="text-color-preview" style="background-color: #ffffff"></div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="text-size">Ukuran Teks (px)</label>
+                    <input type="number" id="text-size" value="24" min="10" max="50">
+                </div>
+                
+                <div class="form-group">
+                    <label for="brat-bg">Background Brat</label>
+                    <div class="color-group">
+                        <input type="color" id="brat-bg" value="#6a11cb" class="color-input">
+                        <div class="color-preview" id="brat-bg-preview" style="background-color: #6a11cb"></div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="brat-size">Size Brat (px)</label>
+                    <input type="text" id="brat-size" value="400x300" placeholder="contoh: 400x300">
+                </div>
+                
+                <div class="form-group">
+                    <label for="canvas-bg">Background Canvas</label>
+                    <div class="color-group">
+                        <input type="color" id="canvas-bg" value="#2575fc" class="color-input">
+                        <div class="color-preview" id="canvas-bg-preview" style="background-color: #2575fc"></div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="canvas-size">Size Canvas (px)</label>
+                    <input type="text" id="canvas-size" value="600x500" placeholder="contoh: 600x500">
+                </div>
+                
+                <div class="button-group">
+                    <button class="generate-btn" id="generate-btn">Generate Kutipan</button>
+                    <button class="download-btn" id="download-btn">Download</button>
+                </div>
+            </div>
+            
+            <div class="preview-container">
+                <h2 class="preview-title">Pratinjau Kutipan</h2>
+                <canvas id="preview-canvas" width="600" height="500"></canvas>
+                <p class="preview-info">Hasil kutipan akan ditampilkan di sini setelah Anda menekan tombol Generate</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 HyperXZ-BQC-Tools - ¿ZeroGravity?</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const canvas = document.getElementById('preview-canvas');
+            const ctx = canvas.getContext('2d');
+            const generateBtn = document.getElementById('generate-btn');
+            const downloadBtn = document.getElementById('download-btn');
+            
+            // Elemen input
+            const bratText = document.getElementById('brat-text');
+            const textColor = document.getElementById('text-color');
+            const textSize = document.getElementById('text-size');
+            const bratBg = document.getElementById('brat-bg');
+            const bratSize = document.getElementById('brat-size');
+            const canvasBg = document.getElementById('canvas-bg');
+            const canvasSize = document.getElementById('canvas-size');
+            
+            // Preview warna
+            const textColorPreview = document.getElementById('text-color-preview');
+            const bratBgPreview = document.getElementById('brat-bg-preview');
+            const canvasBgPreview = document.getElementById('canvas-bg-preview');
+            
+            // Update preview warna
+            textColor.addEventListener('input', function() {
+                textColorPreview.style.backgroundColor = textColor.value;
+            });
+            
+            bratBg.addEventListener('input', function() {
+                bratBgPreview.style.backgroundColor = bratBg.value;
+            });
+            
+            canvasBg.addEventListener('input', function() {
+                canvasBgPreview.style.backgroundColor = canvasBg.value;
+            });
+            
+            // Fungsi untuk menggambar kutipan
+            function drawQuote() {
+                // Parse ukuran
+                const [canvasWidth, canvasHeight] = canvasSize.value.split('x').map(Number);
+                const [bratWidth, bratHeight] = bratSize.value.split('x').map(Number);
+                
+                // Set ukuran canvas
+                canvas.width = canvasWidth;
+                canvas.height = canvasHeight;
+                
+                // Gambar background canvas
+                ctx.fillStyle = canvasBg.value;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Hitung posisi brat (di tengah)
+                const bratX = (canvas.width - bratWidth) / 2;
+                const bratY = (canvas.height - bratHeight) / 2;
+                
+                // Gambar kotak brat
+                ctx.fillStyle = bratBg.value;
+                ctx.beginPath();
+                ctx.roundRect(bratX, bratY, bratWidth, bratHeight, 20);
+                ctx.fill();
+                
+                // Style teks
+                ctx.fillStyle = textColor.value;
+                ctx.font = `bold ${textSize.value}px Segoe UI, Tahoma, Geneva, Verdana, sans-serif`;
+                ctx.textAlign = 'center';
+                
+                // Format teks agar pas dalam kotak
+                const words = bratText.value.split(' ');
+                const lines = [];
+                let currentLine = words[0];
+                
+                for (let i = 1; i < words.length; i++) {
+                    const word = words[i];
+                    const width = ctx.measureText(currentLine + " " + word).width;
+                    if (width < bratWidth - 40) {
+                        currentLine += " " + word;
+                    } else {
+                        lines.push(currentLine);
+                        currentLine = word;
+                    }
+                }
+                lines.push(currentLine);
+                
+                // Gambar teks
+                const lineHeight = parseInt(textSize.value) * 1.5;
+                const textY = bratY + (bratHeight - (lines.length * lineHeight)) / 2 + parseInt(textSize.value);
+                
+                lines.forEach((line, index) => {
+                    ctx.fillText(line, bratX + bratWidth / 2, textY + (index * lineHeight));
+                });
+            }
+            
+            // Generate kutipan saat tombol diklik
+            generateBtn.addEventListener('click', drawQuote);
+            
+            // Download gambar
+            downloadBtn.addEventListener('click', function() {
+                const link = document.createElement('a');
+                link.download = 'hyperxz-brat-quote.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+            
+            // Generate kutipan pertama saat halaman dimuat
+            drawQuote();
+        });
+    </script>
+</body>
+</html>
